@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Temporary or debug files
+temp/
+.DS_Store
+
+# System junk files
+Thumbs.db
+
+# Backup files
+*.bak
+
+# Build or dist outputs
+dist/
+build/
+
+uploads/

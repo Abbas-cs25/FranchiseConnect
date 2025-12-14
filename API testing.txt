@@ -1,0 +1,72 @@
+{
+    "user": {
+        "id": "691154de740db9340b9fb41c",
+        "name": "Abbas",
+        "email": "investor1@example.com",
+        "role": "Investor"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTE1NGRlNzQwZGI5MzQwYjlmYjQxYyIsInJvbGUiOiJJbnZlc3RvciIsImVtYWlsIjoiaW52ZXN0b3IxQGV4YW1wbGUuY29tIiwiaWF0IjoxNzYyNzQzNTE4LCJleHAiOjE3NjMzNDgzMTh9.wawm5uWaUjnoIfGg-0sAaJH65GB58RwZHm8WSiMLnbU"
+}
+
+
+
+{
+    "success": true,
+    "message": "User registered successfully",
+    "user": {
+        "_id": "6911577a8687a90d07abf995",
+        "name": "Abdul",
+        "email": "abdul@example.com",
+        "role": "Investor",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTE1NzdhODY4N2E5MGQwN2FiZjk5NSIsImlhdCI6MTc2Mjc0NDE4NiwiZXhwIjoxNzYzMzQ4OTg2fQ.917jLLju9fO9v3LOTB2delRYEci1auHa_3tqevdZdvA"
+    }
+}
+
+
+
+{
+    "success": true,
+    "message": "User registered successfully",
+    "user": {
+        "_id": "6911583b8687a90d07abf99a",
+        "name": "Tata Motors",
+        "email": "tata@example.com",
+        "role": "BrandOwner",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTE1ODNiODY4N2E5MGQwN2FiZjk5YSIsImlhdCI6MTc2Mjc0NDM3OSwiZXhwIjoxNzYzMzQ5MTc5fQ.jviTFFkYZOPpFHo3_Z2TCh6khNs0EDUeyselKbxf7Is"
+    }
+}
+
+
+{
+    "success": true,
+    "message": "User registered successfully",
+    "user": {
+        "_id": "69117c2a06a36accab342160",
+        "name": "Test User",
+        "email": "test@example.com",
+        "role": "Investor",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTE3YzJhMDZhMzZhY2NhYjM0MjE2MCIsImlhdCI6MTc2Mjc1MzU3OSwiZXhwIjoxNzYzMzU4Mzc5fQ.8ZLsopt5DCKT4BGCHk5o3ZVgifH68sJDvvEGeZc-UOs"
+    }
+}
+
+
+{
+    "_id": "69117c2a06a36accab342160",
+    "name": "Test User",
+    "email": "test@example.com",
+    "role": "Investor",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTE3YzJhMDZhMzZhY2NhYjM0MjE2MCIsImlhdCI6MTc2Mjc1MzY0NywiZXhwIjoxNzYzMzU4NDQ3fQ.NKa2bY9F3D0_2iqV2QYxikoYotQrKCP5t1naG1xFzlI"
+}
+
+
+{
+    "success": true,
+    "message": "User registered successfully",
+    "user": {
+        "_id": "6912d2835c654040275ab7b7",
+        "name": "ABDUL KAREEM KHAN",
+        "email": "khan@example.com",
+        "role": "BrandOwner",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTJkMjgzNWM2NTQwNDAyNzVhYjdiNyIsImlhdCI6MTc2Mjg0MTIyMCwiZXhwIjoxNzYzNDQ2MDIwfQ.Pc31Bfe0Q_D2tEhcLHC4pnjRuhqIEYa4WVNzBF4Qezw"
+    }
+}
