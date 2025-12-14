@@ -34,4 +34,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-console.log("Mongo URI:mongodb+srv://abbaskhan:abbas846@franchisecluster.tsqon9c.mongodb.net/?appName=FranchiseCluster ", process.env.MONGO_URI);
+
