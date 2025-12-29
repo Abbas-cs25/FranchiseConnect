@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [brandCount, setBrandCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      const apiBaseUrl = "http://localhost:5000";
+      
+      // Fetch brand count
+      const brandResponse = await fetch(`${apiBaseUrl}/api/brands/count`);
+      if (brandResponse.ok) {
+        const brandData = await brandResponse.json();
+        setBrandCount(brandData.count || 0);
+      }
+
+      // Fetch user count
+      const userResponse = await fetch(`${apiBaseUrl}/api/users/count`);
+      if (userResponse.ok) {
+        const userData = await userResponse.json();
+        setUserCount(userData.count || 0);
+      }
+    } catch (error) {
+      console.error("Error fetching stats:", error);
+      // Keep default values on error
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="home-container">
 
@@ -138,14 +172,14 @@ const Home = () => {
       {/* ---------------- STATS ---------------- */}
       <section className="stats">
         <div className="stat-box">
-          <h3>215</h3>
+          <h3>{loading ? "..." : brandCount}</h3>
           <p>Brands</p>
         </div>
 
         
 
         <div className="stat-box">
-          <h3>12,908</h3>
+          <h3>{loading ? "..." : userCount}</h3>
           <p>Users</p>
         </div>
       </section>

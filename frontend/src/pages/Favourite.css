@@ -1,0 +1,132 @@
+.favorites-page .navbar {
+  width: 100%;
+  padding: 18px 40px;
+  background: #020617;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.favorites-page .nav-left { display:flex; align-items:center; gap:12px; cursor:pointer; }
+.favorites-page .nav-logo { width:45px; height:45px; object-fit:cover; border-radius:8px; }
+.favorites-page h2 { margin:0; font-size:24px; font-weight:700; color: #60a5fa; }
+.favorites-page .nav-logo:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+.favorites-page .nav-btn {
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1rem);
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.favorites-page .nav-btn-primary {
+  background-color: #60a5fa;
+  color: white;
+  border: 1px solid #60a5fa;
+}
+
+.favorites-page .nav-btn-primary:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+}
+
+.favorites-page .nav-btn-logout {
+  background-color: #ff6347;
+  color: white;
+  border: 1px solid #ff6347;
+}
+
+.favorites-page .nav-btn-logout:hover {
+  background-color: #ff4500;
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+  transform: translate(-2px);
+}
+
+
+/* ===== FAVORITES PAGE ===== */
+.favorites-page {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a1c2d 0%, #0f2438 100%);
+  color: #ffffff;
+}
+
+.favorites-page .favorites-container {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.favorites-page .empty-state {
+  text-align: center;
+  padding: clamp(2rem, 6vw, 3.75rem) 1rem;
+}
+
+.favorites-page .favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(200px, 20vw, 280px), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.favorites-page .favorite-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.favorites-page .favorite-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #60a5fa;
+  transform: translateY(-4px);
+}
+
+
+.favorites-page .fav-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.favorites-page .fav-actions button {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: clamp(0.8rem, 2vw, 0.875rem);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.favorites-page .btn-danger {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.favorites-page .btn-danger:hover {
+  background: rgba(239, 68, 68, 0.3);
+}

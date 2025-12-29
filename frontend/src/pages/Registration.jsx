@@ -1,12 +1,7 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Registration.css";
-
-/*
- NOTE: right-side watermark/background uses a local path uploaded earlier.
- The runtime / deployment will map that path to a URL automatically:
- "/mnt/data/Screenshot 2025-11-21 233128.png"
-*/
-const watermarkPath = "/mnt/data/Screenshot 2025-11-21 233128.png";
+import { authAPI } from "../services/api";
 
 const indianStates = [
   "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat",
@@ -17,9 +12,8 @@ const indianStates = [
   "Delhi","Jammu & Kashmir","Ladakh","Lakshadweep","Puducherry"
 ];
 
-// small city suggestions for some states (optional)
 const citiesByState = {
-  "Karnataka": ["Bengaluru", "Mysuru", "Mangalore", "Hubli"],
+  "Karnataka": ["Bengaluru", "Mysuru", "Mangalore", "Hubli",],
   "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik"],
   "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
   "Kerala": ["Kochi", "Thiruvananthapuram", "Kozhikode"],
@@ -27,10 +21,11 @@ const citiesByState = {
 };
 
 export default function Registration() {
-  // field state
+  const navigate = useNavigate();
   const [profileFile, setProfileFile] = useState(null);
   const [profilePreview, setProfilePreview] = useState(null);
   const fileRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -48,17 +43,13 @@ export default function Registration() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
-
-  // validation errors
   const [errors, setErrors] = useState({});
 
-  // helpers
-  const validateEmail = (v) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(v);
+  const validateEmail = (v) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v);
   const validateMobile = (v) => /^\d{10}$/.test(v);
   const validatePincode = (v) => /^\d{6}$/.test(v);
   const passwordStrong = (pw) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(pw);
 
-  // handlers
   const onProfileClick = () => {
     if (fileRef.current) fileRef.current.click();
   };
@@ -91,16 +82,15 @@ export default function Registration() {
 
   const onStateChange = (e) => {
     setStateName(e.target.value);
-    setCity(""); // reset city when state changes
+    setCity("");
     setErrors(prev => ({ ...prev, state: "" }));
   };
 
-  // per-field validation helper
   const checkField = (name) => {
     let err = "";
     switch (name) {
       case "profile":
-        if (!profileFile) err = "Profile photo is required.";
+        if (!profileFile) err = "";  // Profile photo is optional
         break;
       case "firstName":
         if (!firstName.trim()) err = "First name is required.";
@@ -136,7 +126,7 @@ export default function Registration() {
         if (!validateMobile(mobile)) err = "Mobile must be exactly 10 digits.";
         break;
       case "email":
-        if (!validateEmail(email)) err = "Email must be a valid Gmail address (@gmail.com).";
+        if (!validateEmail(email)) err = "Invalid email address.";
         break;
       case "password":
         if (!passwordStrong(password)) err = "Password must be 8+ chars with upper, lower, number & special.";
@@ -152,7 +142,7 @@ export default function Registration() {
   };
 
   const validateAll = () => {
-    const keys = ["profile","firstName","lastName","gender","dob","state","city","pincode","address","qualification","occupation","mobile","email","password","confirmPassword"];
+    const keys = ["firstName","lastName","gender","dob","state","city","pincode","address","qualification","occupation","mobile","email","password","confirmPassword"];
     let ok = true;
     keys.forEach(k => {
       const res = checkField(k);
@@ -161,49 +151,53 @@ export default function Registration() {
     return ok;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateAll()) {
-      // scroll to top for visibility
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    // prepare form data to send to backend
-    const fd = new FormData();
-    fd.append("profile", profileFile);
-    fd.append("firstName", firstName);
-    fd.append("middleName", middleName);
-    fd.append("lastName", lastName);
-    fd.append("gender", gender);
-    fd.append("dob", dob);
-    fd.append("state", stateName);
-    fd.append("city", city);
-    fd.append("pincode", pincode);
-    fd.append("address", address);
-    fd.append("qualification", qualification);
-    fd.append("occupation", occupation);
-    fd.append("mobile", mobile);
-    fd.append("email", email);
-    fd.append("password", password);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("profilePhoto", profileFile);
+      formData.append("firstName", firstName);
+      formData.append("middleName", middleName);
+      formData.append("lastName", lastName);
+      formData.append("gender", gender);
+      formData.append("dob", dob);
+      formData.append("state", stateName);
+      formData.append("city", city);
+      formData.append("pinCode", pincode);
+      formData.append("address", address);
+      formData.append("qualification", qualification);
+      formData.append("occupation", occupation);
+      formData.append("mobile", mobile);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("confirmPassword", confirmPassword);
 
-    // demo: log keys (file won't print binary)
-    for (let pair of fd.entries()) {
-      console.log(pair[0], pair[1]);
+      const response = await authAPI.register(formData);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      alert("Registration successful! Redirecting to dashboard...");
+      navigate("/dashboard");
+    } catch (error) {
+      alert(error.response?.data?.message || "Registration failed");
+      setErrors(prev => ({ ...prev, submit: error.response?.data?.message }));
+    } finally {
+      setLoading(false);
     }
-
-    alert("Form validated client-side. Check console for FormData entries.");
-    // TODO: send fd to backend using fetch/axios
   };
 
-  // qualification options from SSLC upward
   const qualifications = ["SSLC","PUC","Diploma","B.Sc","B.Com","B.E/B.Tech","BCA","BBA","M.Sc","M.Com","M.E/M.Tech","MCA","MBA","PhD"];
 
   return (
     <div className="registration-page">
       <div className="left-panel">
         <div className="top-header">
-          <img src="/logo.png" alt="logo" className="site-logo" />
+          <img src="/logo.png" alt="FranchiseConnect Logo" className="site-logo" onClick={() => navigate("/")} style={{ cursor: "pointer" }} title="Go to Home" />
           <div className="site-title">FranchiseConnect</div>
         </div>
 
@@ -222,8 +216,8 @@ export default function Registration() {
                   <div className="profile-placeholder">Upload</div>
                 )}
               </div>
-              <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={onProfileChange} />
-              <label className="field-label muted">Profile Photo <span className="req">*</span></label>
+              <input ref={fileRef} type="file" accept="image/jpeg" style={{ display: "none" }} onChange={onProfileChange} />
+              <label className="field-label muted">Profile Photo (JPG)</label>
               {errors.profile && <div className="error-text">{errors.profile}</div>}
             </div>
           </div>
@@ -248,7 +242,7 @@ export default function Registration() {
             </div>
           </div>
 
-          {/* GENDER (radio) */}
+          {/* GENDER */}
           <div className="field-row">
             <div className={`field ${errors.gender ? "error-border" : ""}`}>
               <label>Gender <span className="req">*</span></label>
@@ -280,8 +274,6 @@ export default function Registration() {
 
             <div className={`field ${errors.city ? "error-border" : ""}`}>
               <label>City <span className="req">*</span></label>
-
-              {/* if we have suggestions for selected state show a dropdown, else free text */}
               {citiesByState[stateName] ? (
                 <select value={city} onChange={e=>setCity(e.target.value)} onBlur={()=>checkField("city")}>
                   <option value="">Select City</option>
@@ -336,8 +328,8 @@ export default function Registration() {
             </div>
 
             <div className={`field ${errors.email ? "error-border" : ""}`}>
-              <label>Email (only @gmail.com) <span className="req">*</span></label>
-              <input value={email} onChange={onEmailChange} onBlur={()=>checkField("email")} placeholder="example@gmail.com" />
+              <label>Email <span className="req">*</span></label>
+              <input value={email} onChange={onEmailChange} onBlur={()=>checkField("email")} placeholder="example@email.com" />
               {errors.email && <div className="error-text">{errors.email}</div>}
             </div>
           </div>
@@ -355,38 +347,34 @@ export default function Registration() {
               <div className="password-wrapper">
                 <input type={showConfirm ? "text" : "password"} value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)} onBlur={()=>checkField("confirmPassword")} />
                 <button type="button" className="eye-btn" onClick={()=>setShowConfirm(s=>!s)} aria-label="toggle confirm visibility">
-                  {showConfirm ? (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  ) : (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8"/><path d="M1 1l22 22"/></svg>
-                  )}
+                  {showConfirm ? "Hide" : "Show"}
                 </button>
               </div>
               {errors.confirmPassword && <div className="error-text">{errors.confirmPassword}</div>}
             </div>
           </div>
 
-          {/* final buttons */}
+          {errors.submit && <div className="error-text">{errors.submit}</div>}
+
+          {/* BUTTONS */}
           <div className="field-row">
             <div className="buttons">
-              <button type="submit" className="btn primary">Register</button>
+              <button type="submit" className="btn primary" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
               <button type="button" className="btn secondary" onClick={()=>{
-                // clear all
-                setProfileFile(null); setProfilePreview(null); if (fileRef.current) fileRef.current.value = "";
+                setProfileFile(null); setProfilePreview(null);
                 setFirstName(""); setMiddleName(""); setLastName("");
                 setGender(""); setDob(""); setStateName(""); setCity(""); setPincode("");
                 setAddress(""); setQualification(""); setOccupation(""); setMobile("");
                 setEmail(""); setPassword(""); setConfirmPassword(""); setErrors({});
               }}>Clear</button>
-              <button type="button" className="btn secondary" onClick={()=>window.location.href="/login"}>Login</button>
+              <button type="button" className="btn secondary" onClick={()=>navigate("/login")}>Login</button>
             </div>
           </div>
         </form>
       </div>
 
-      {/* RIGHT PANEL with watermark image background */}
-      <div className="right-panel" style={{ backgroundImage: `url("${watermarkPath}")` }}>
-        <img src="/registration.png" alt="illustration" className="illustration" />
+      <div className="right-panel">
+        <img src="/registration.png" alt="Registration Illustration" className="illustration" />
       </div>
     </div>
   );

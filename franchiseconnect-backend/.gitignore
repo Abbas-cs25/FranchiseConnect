@@ -1,25 +1,57 @@
 # Node modules
 node_modules/
+package-lock.json
 
-# Environment variables
+# Environment variables - NEVER commit .env files
 .env
+.env.local
+.env.*.local
+!.env.example
+!.env.sample
 
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Temporary or debug files
 temp/
 .DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
 
 # System junk files
 Thumbs.db
+*.swp
+*.swo
+*~
 
 # Backup files
 *.bak
+*.backup
+*.old
 
 # Build or dist outputs
 dist/
 build/
+.next/
 
+# User uploads and sensitive files
 uploads/
+private/
+secrets/
+.keys/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini

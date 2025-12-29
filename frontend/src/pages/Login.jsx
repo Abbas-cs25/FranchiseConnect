@@ -1,56 +1,60 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { authAPI } from "../services/api";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    // Dummy validation (replace with backend later)
-    if (email !== "abbas@gmail.com" || password !== "Abbas@123") {
-      setError("Invalid email or password");
-      return;
+    try {
+      const response = await authAPI.login(email, password);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      alert("Login successful!");
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    navigate("/dashboard");
   };
 
   return (
     <div className="login-page">
-
-      {/* ------------ Container ------------- */}
       <div className="login-box">
-
-        {/* Logo + Name */}
         <div className="login-header">
-          <img src="/logo.png" className="login-logo" alt="logo" />
           <h2>FranchiseConnect</h2>
         </div>
 
-        {/* Error message */}
         {error && <p className="error-text">{error}</p>}
 
-        {/* Form */}
         <form onSubmit={handleLogin}>
-
-          {/* Email */}
           <label>Email *</label>
-          <input type="email" name="email" placeholder="Enter Email" required />
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-          {/* Password */}
           <label>Password *</label>
           <div className="password-wrapper">
             <input
               type={passwordVisible ? "text" : "password"}
-              name="password"
               placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <button
@@ -58,26 +62,22 @@ const Login = () => {
               className="eye-btn"
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
-              {passwordVisible ? "👁️" : "👁️‍🗨️"}
+              {passwordVisible ? "Hide" : "Show"}
             </button>
           </div>
 
-          {/* Forgot Password */}
           <p className="forgot-link" onClick={() => navigate("/forgot-password")}>
             Forgot Password?
           </p>
 
-          {/* Login Btn */}
-          <button className="login-btn" type="submit">
-            Login
+          <button className="login-btn" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        {/* Register Link */}
         <div className="register-text">
           New User? <Link to="/register">Register</Link>
         </div>
-
       </div>
     </div>
   );

@@ -1,6 +1,4 @@
-/* ----------------------------------------------------
-   GLOBAL
----------------------------------------------------- */
+/* ===== GLOBAL STYLES ===== */
 * {
   margin: 0;
   padding: 0;
@@ -16,47 +14,61 @@ body {
 .home-container {
   width: 100%;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ----------------------------------------------------
-   NAVBAR
----------------------------------------------------- */
+/* ===== NAVBAR (RESPONSIVE) ===== */
 .navbar {
   width: 100%;
-  padding: 18px 40px;
+  padding: clamp(0.75rem, 3vw, 1.25rem);
   background: #020617;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
   z-index: 10;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  flex: 1 1 auto;
+  min-width: 200px;
 }
 
 .nav-logo {
-  width: 45px;
-  height: 45px;
+  width: clamp(35px, 8vw, 45px);
+  height: clamp(35px, 8vw, 45px);
 }
 
 .nav-left h2 {
-  font-size: 24px;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   font-weight: 700;
   color: #60a5fa;
+  margin: 0;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .nav-right a {
-  margin-left: 25px;
-  font-size: 15px;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   text-decoration: none;
   color: white;
   transition: 0.3s;
+  white-space: nowrap;
 }
 
 .nav-right a:hover {
@@ -64,51 +76,102 @@ body {
 }
 
 .register-btn {
-  padding: 8px 16px;
+  padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem);
   background: #2563eb;
   border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .register-btn:hover {
   background: #1d4ed8;
 }
 
-/* ----------------------------------------------------
-   HERO SECTION
----------------------------------------------------- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem;
+  }
+
+  .nav-left, .nav-right {
+    justify-content: center;
+    flex: 1 1 100%;
+    min-width: unset;
+  }
+
+  .nav-right {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-left {
+    justify-content: center;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-right a {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  .register-btn {
+    width: 100%;
+  }
+}
+
+/* ===== HERO SECTION ===== */
 .hero {
   width: 100%;
-  padding: 70px 60px;
+  padding: clamp(2rem, 8vw, 4.375rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .hero-left {
-  width: 50%;
+  flex: 1 1 100%;
+  min-width: 280px;
+}
+
+@media (min-width: 1024px) {
+  .hero-left {
+    flex: 1 1 45%;
+  }
 }
 
 .hero-left h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
+  font-size: clamp(1.8rem, 5vw, 2.625rem);
+  margin-bottom: 1rem;
   color: #93c5fd;
+  line-height: 1.2;
 }
 
 .hero-left p {
-  margin-bottom: 25px;
-  font-size: 16px;
+  margin-bottom: 1.5rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   line-height: 1.6;
 }
 
 .get-started-btn {
-  padding: 14px 28px;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.5rem, 3vw, 1.75rem);
   background: #3b82f6;
-  font-size: 18px;
+  font-size: clamp(0.9rem, 2vw, 1.125rem);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   color: white;
   transition: 0.3s;
+  min-height: 44px;
 }
 
 .get-started-btn:hover {
@@ -116,12 +179,23 @@ body {
 }
 
 .hero-right {
-  width: 45%;
+  flex: 1 1 100%;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-right {
+    flex: 1 1 45%;
+  }
 }
 
 .slider {
-  width: 600px;
-  height: 400px;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  aspect-ratio: 3/2;
   overflow: hidden;
   border-radius: 20px;
   display: flex;
@@ -132,6 +206,7 @@ body {
   width: 100%;
   height: 100%;
   flex-shrink: 0;
+  object-fit: cover;
   animation: slide4 16s infinite;
 }
 
@@ -145,101 +220,127 @@ body {
   100% { transform: translateX(0%); }
 }
 
-
-/* ----------------------------------------------------
-   SERVICES
----------------------------------------------------- */
+/* ===== SERVICES SECTION ===== */
 .services {
-  width: 90%;
-  margin: 40px auto;
+  width: calc(100% - 2rem);
+  margin: 2rem auto;
   background: #fff;
-  padding: 40px 20px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
   color: #000;
 }
 
 .services h2 {
-  font-size: 30px;
-  margin-bottom: 30px;
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  margin-bottom: 1.5rem;
 }
 
 .services-grid {
-  display: flex;
-  justify-content: space-around;
-  padding: 0 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: 0 clamp(0, 2vw, 3.125rem);
 }
 
 .service-card {
-  width: 22%;
   background: #ffffff;
-  padding: 25px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
   border-radius: 12px;
   border: 1px solid #e5e7eb;
-  transition: 0.3s;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .service-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .service-icon {
-  font-size: 40px;
+  font-size: clamp(2rem, 5vw, 2.5rem);
   color: #60a5fa;
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
 }
 
 .service-card h4 {
-  font-size: 20px;
-  margin-bottom: 8px;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  margin-bottom: 0.5rem;
 }
 
 .service-card p {
-  font-size: 14px;
+  font-size: clamp(0.85rem, 2vw, 0.875rem);
   opacity: 0.8;
+  line-height: 1.5;
 }
 
-/* ----------------------------------------------------
-   ABOUT SECTION
----------------------------------------------------- */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .services {
+    margin: 1.5rem auto;
+    padding: 1rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+}
+
+/* ===== ABOUT SECTION ===== */
 .about-section {
   width: 100%;
   background: #1e293b;
-  padding: 50px 70px;
+  padding: clamp(2rem, 8vw, 3.125rem);
   text-align: center;
-  margin-top: 60px;
+  margin-top: 3rem;
 }
 
 .about-section h2 {
-  font-size: 30px;
-  margin-bottom: 15px;
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  margin-bottom: 1rem;
 }
 
 .about-section p {
-  width: 70%;
-  margin: auto;
+  width: clamp(85%, 90vw, 70%);
+  margin: 0 auto;
   line-height: 1.7;
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
-/* ----------------------------------------------------
-   FLIP CARDS
----------------------------------------------------- */
+@media (max-width: 768px) {
+  .about-section {
+    margin-top: 2rem;
+  }
+
+  .about-section p {
+    width: 95%;
+  }
+}
+
+/* ===== FLIP CARDS ===== */
 .cards-section {
-  width: 90%;
-  margin: 40px auto;
+  width: calc(100% - 2rem);
+  margin: 2rem auto;
   background: #fff;
-  padding: 40px 20px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: flex;
-  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
 }
 
 .card {
-  width: 22%;
   height: 200px;
   perspective: 1000px;
   position: relative;
@@ -254,12 +355,10 @@ body {
   border-radius: 12px;
 }
 
-/* Flip on hover */
 .card:hover .card-inner {
   transform: rotateY(180deg);
 }
 
-/* Front + Back shared properties */
 .card-front,
 .card-back {
   position: absolute;
@@ -270,119 +369,230 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
+  font-size: clamp(1.25rem, 4vw, 1.375rem);
   font-weight: 600;
+  text-align: center;
+  padding: 1rem;
 }
 
-/* Front side */
 .card-front {
   background: #1e293b;
 }
 
-/* Back side */
 .card-back {
   background: #1e293b;
   transform: rotateY(180deg);
 }
-/* ----------------------------------------------------
-   FULL WIDTH BANNER
----------------------------------------------------- */
-.full-width-banner img {
-  width: 100%;
-  margin-top: 40px;
+
+@media (max-width: 480px) {
+  .cards-section {
+    margin: 1.5rem auto;
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    height: 150px;
+  }
 }
 
-/* ----------------------------------------------------
-   FOCUS SECTION
----------------------------------------------------- */
+/* ===== FULL WIDTH BANNER ===== */
+.full-width-banner {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.full-width-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== FOCUS SECTION ===== */
 .focus-area {
   text-align: center;
-  padding: 50px 60px;
+  padding: clamp(2rem, 8vw, 3.125rem);
 }
 
 .focus-area h2 {
-  font-size: 30px;
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
 }
 
 .focus-area p {
-  width: 70%;
-  margin: auto;
-  margin-top: 15px;
+  width: clamp(85%, 90vw, 70%);
+  margin: 1rem auto 0;
   opacity: 0.9;
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
-/* ----------------------------------------------------
-   STATS
----------------------------------------------------- */
-.stats {
-  display: flex;
-  justify-content: space-around;
-  padding: 50px
+@media (max-width: 768px) {
+  .focus-area {
+    padding: 2rem 1rem;
+  }
+
+  .focus-area p {
+    width: 95%;
+  }
 }
 
+/* ===== STATS SECTION ===== */
 .stats {
-  width: 50%;
-  margin: 40px auto;
+  width: calc(100% - 2rem);
+  margin: 2rem auto;
   background: #fff;
-  padding: 40px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #111;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
 }
 
 .stat-box {
   background: #1e293b;
-  padding:15px;
+  padding: clamp(1rem, 3vw, 1.25rem);
   border-radius: 14px;
   border: 1px solid #e5e7eb;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: white;
 }
 
+.stat-box h3 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: 0 0 0.5rem 0;
+}
 
-/* updated version */
-.white-container {
-  width: 90%;
-  margin: 40px auto;
+.stat-box p {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .stats {
+    margin: 1.5rem auto;
+    padding: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== WHITE CONTAINER & CONTACT ===== */
+.white-container,
+.contact-container {
+  width: calc(100% - 2rem);
+  margin: 2rem auto;
   background: #ffffff;
-  padding: 40px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   color: #111;
 }
 
 .contact-container {
-  width: 90%;
-  margin: 40px auto;
-  background: #fff;
-  padding: 40px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  color: #000;
   text-align: center;
 }
 
+.white-container h2,
+.contact-container h2 {
+  font-size: clamp(1.5rem, 4vw, 1.875rem);
+  margin-bottom: 1rem;
+}
+
+.white-container p,
+.contact-container p {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .white-container,
+  .contact-container {
+    margin: 1.5rem auto;
+    padding: 1rem;
+  }
+}
+
+/* ===== FOOTER ===== */
 .footer {
-  width: 90%;
-  margin: 40px auto;
+  width: calc(100% - 2rem);
+  margin: 2rem auto;
   background: #7aa4f3;
   border-radius: 14px;
-  padding: 20px;
+  padding: clamp(1rem, 3vw, 1.5rem);
   color: #000;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer h3 {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  margin: 0 0 1rem 0;
 }
 
 .footer p {
   opacity: 0.7;
-  font-size: 14px;
-  color:#000;
+  font-size: clamp(0.8rem, 2vw, 0.875rem);
+  color: #000;
+  margin: clamp(0.5rem, 1vw, 0.75rem) 0;
+  word-break: break-word;
 }
 
 .footer a {
   color: black;
   text-decoration: none;
+  transition: 0.3s;
 }
 
 .footer a:hover {
   color: darkblue;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    margin: 1.5rem auto;
+    padding: 1rem;
+  }
+
+  .footer p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* ===== GLOBAL RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .white-container,
+  .contact-container {
+    width: calc(100% - 1rem);
+    margin: 1.5rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1rem;
+  }
+
+  .services {
+    width: calc(100% - 1rem);
+  }
+
+  .cards-section {
+    width: calc(100% - 1rem);
+  }
+
+  .white-container,
+  .contact-container {
+    width: calc(100% - 1rem);
+  }
+
+  .about-section,
+  .focus-area {
+    padding: 1.5rem 1rem;
+  }
 }

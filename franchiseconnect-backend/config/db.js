@@ -1,18 +1,16 @@
-// config/db.js
-import mongoose from "mongoose";
+
+
+const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    if (!process.env.MONGO_URI) throw new Error("MONGO_URI not set in .env");
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log("MongoDB Connected:", conn.connection.host);
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
+    const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/franchiseconnect";
+    await mongoose.connect(mongoURI);
+    console.log("MongoDB Connected");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
     process.exit(1);
   }
 };
 
-export default connectDB;
+module.exports = connectDB;

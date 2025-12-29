@@ -1,23 +1,38 @@
-// middleware/uploadMiddleware.js
-import multer from "multer";
-import crypto from "crypto";
-import path from "path";
+const multer = require("multer");
+const path = require("path");
 
-const mongoURI = process.env.MONGO_URI;
-if (!mongoURI) throw new Error("MONGO_URI missing");
+// Configure multer for memory storage
+const storage = multer.memoryStorage();
 
-const storage = new GridFsStorage({
-  url: mongoURI,
-  file: (req, file) => {
-    const ext = path.extname(file.originalname);
-    const filename = `${Date.now()}-${crypto.randomBytes(6).toString("hex")}${ext}`;
-    return {
-      bucketName: "uploads",
-      filename,
-    };
+const fileFilter = (req, file, cb) => {
+  // Allow JPG, PNG, and JPEG
+  const allowedMimes = ["image/jpeg", "image/png", "image/jpg"];
+  if (allowedMimes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only JPG/PNG files are allowed"), false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit per file
   },
 });
 
-const upload = multer({ storage });
+// Middleware for profile photo upload
+const uploadProfilePhoto = upload.single("profilePhoto");
 
-export default upload;
+// Middleware for brand uploads (logo + up to 5 photos)
+const uploadBrandFiles = upload.fields([
+  { name: "logo", maxCount: 1 },
+  { name: "photos", maxCount: 5 },
+]);
+
+module.exports = {
+  uploadProfilePhoto,
+  uploadBrandFiles,
+  upload,
+};

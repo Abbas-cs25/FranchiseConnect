@@ -1,15 +1,23 @@
-import express from "express";
-import { getProfile, updateProfile, listUsers } from "../controllers/userController.js";
-import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
-import { ROLES } from "../config/roles.js";
-import { registerUser, loginUser } from "../controllers/authController.js";
-import { authUser } from "../controllers/userController.js";
-
+const express = require("express");
 const router = express.Router();
-router.post("/login", authUser);
-router.get("/me", protect, getProfile);
-router.put("/me", protect, updateProfile);
-router.get("/", protect, authorizeRoles(ROLES.ADMIN, ROLES.SUPERADMIN), listUsers);
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-export default router;
+const authMiddleware = require("../middleware/authMiddleware");
+const { uploadProfilePhoto } = require("../middleware/uploadMiddleware");
+
+const {
+  getUserProfile,
+  updateUserProfile,
+  getUserBrands,
+  getProfilePhoto,
+  getUserCount,
+} = require("../controllers/userController");
+
+// Public route for user count
+router.get("/count", getUserCount);
+
+// Protected routes
+router.get("/profile", authMiddleware, getUserProfile);
+router.put("/profile", authMiddleware, uploadProfilePhoto, updateUserProfile);
+router.get("/brands", authMiddleware, getUserBrands);
+router.get("/profile-photo/:userId", getProfilePhoto);
+
+module.exports = router;

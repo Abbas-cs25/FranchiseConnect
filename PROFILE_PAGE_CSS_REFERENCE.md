@@ -1,0 +1,716 @@
+# Profile Page - CSS Styling Code Reference
+
+## 🎨 Complete Styling Breakdown
+
+This document shows all CSS classes and their styles for easy reference and customization.
+
+---
+
+## 📚 Navigation Bar Styling
+
+### Main Navigation Container
+```css
+.profile-navbar {
+  width: 100%;
+  padding: 16px 40px;
+  background: #020617;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 20px;
+}
+```
+
+### Logo & Title Container
+```css
+.profile-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.profile-nav-left:hover {
+  transform: scale(1.02);
+}
+```
+
+### Logo Image
+```css
+.profile-nav-logo {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #60a5fa;
+  transition: all 0.3s ease;
+}
+
+.profile-nav-logo:hover {
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+  transform: scale(1.08);
+}
+```
+
+### Navigation Title (h2)
+```css
+.profile-nav-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #60a5fa;
+  transition: color 0.3s ease;
+}
+
+.profile-nav-title:hover {
+  color: #93c5fd;
+}
+```
+
+### Navigation Buttons Container
+```css
+.profile-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+```
+
+### Base Navigation Button
+```css
+.profile-nav-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+```
+
+### Blue Buttons (Edit, Upload, Dashboard)
+```css
+.profile-nav-btn.edit-btn,
+.profile-nav-btn.upload-btn,
+.profile-nav-btn.dashboard-btn {
+  color: #ffffff;
+  background: #60a5fa;
+  border: 2px solid #60a5fa;
+}
+
+.profile-nav-btn.edit-btn:hover,
+.profile-nav-btn.upload-btn:hover,
+.profile-nav-btn.dashboard-btn:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+}
+```
+
+### Logout Button (Tomato)
+```css
+.profile-nav-btn.logout-btn {
+  color: #ffffff;
+  background: #ff6347;
+  border: 2px solid #ff6347;
+}
+
+.profile-nav-btn.logout-btn:hover {
+  background: #ff4534;
+  border-color: #ff4534;
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+  transform: translateY(-2px);
+}
+```
+
+---
+
+## 👤 Profile Card Styling
+
+### Main Profile Container
+```css
+.profile-card-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 12px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.profile-card-container:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 12px 48px rgba(96, 165, 250, 0.1);
+}
+```
+
+### Profile Header
+```css
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+}
+```
+
+### Profile Photo (Actual Image)
+```css
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #60a5fa;
+  box-shadow: 0 8px 24px rgba(96, 165, 250, 0.3);
+}
+```
+
+### Profile Photo Placeholder
+```css
+.profile-photo-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 700;
+  border: 4px solid #60a5fa;
+  box-shadow: 0 8px 24px rgba(96, 165, 250, 0.3);
+}
+```
+
+### Profile Header Info
+```css
+.profile-header-info {
+  flex: 1;
+}
+
+.profile-header-info h2 {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.profile-email {
+  margin: 0;
+  color: #93c5fd;
+  font-size: 16px;
+}
+```
+
+---
+
+## 📋 Information Display Styling
+
+### Information Grid
+```css
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+```
+
+### Information Item
+```css
+.info-item {
+  padding: 20px;
+  background: rgba(96, 165, 250, 0.05);
+  border: 1px solid rgba(96, 165, 250, 0.15);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: rgba(96, 165, 250, 0.3);
+}
+
+.info-item label {
+  display: block;
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.info-item p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.5;
+}
+```
+
+---
+
+## 📝 Form Styling
+
+### Form Container
+```css
+.profile-form {
+  padding: 20px 0;
+}
+```
+
+### Form Row (Grid Layout)
+```css
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+```
+
+### Form Group
+```css
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  color: #60a5fa;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+```
+
+### Form Inputs
+```css
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+```
+
+### Textarea
+```css
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+```
+
+### Form Actions
+```css
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid rgba(96, 165, 250, 0.2);
+}
+```
+
+### Save Changes Button
+```css
+.btn-save-changes {
+  padding: 12px 32px;
+  background: #60a5fa;
+  color: #ffffff;
+  border: 2px solid #60a5fa;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-save-changes:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+}
+```
+
+### Cancel Button
+```css
+.btn-cancel {
+  padding: 12px 32px;
+  background: transparent;
+  color: #60a5fa;
+  border: 2px solid #60a5fa;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: #93c5fd;
+  color: #93c5fd;
+  transform: translateY(-2px);
+}
+```
+
+---
+
+## 🛍️ Brands Section Styling
+
+### Brands Container
+```css
+.my-brands-container {
+  padding: 0;
+}
+```
+
+### Brands Header
+```css
+.brands-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+}
+
+.brands-header h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+```
+
+### Add Brand Button
+```css
+.btn-add-brand {
+  padding: 12px 24px;
+  background: #60a5fa;
+  color: #ffffff;
+  border: 2px solid #60a5fa;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-add-brand:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+}
+```
+
+### Brands Grid
+```css
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+```
+
+### Brand Card
+```css
+.brand-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.brand-card:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 12px 48px rgba(96, 165, 250, 0.15);
+  transform: translateY(-5px);
+}
+```
+
+### Brand Logo
+```css
+.brand-logo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.brand-logo-placeholder {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+}
+```
+
+### Brand Info
+```css
+.brand-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.brand-category {
+  margin: 0 0 12px 0;
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.brand-description {
+  margin: 0 0 15px 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.5;
+  flex: 1;
+}
+```
+
+### Brand Actions
+```css
+.brand-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 20px;
+  border-top: 1px solid rgba(96, 165, 250, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+```
+
+### View Details Button
+```css
+.btn-view-details {
+  padding: 10px 16px;
+  background: #60a5fa;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-view-details:hover {
+  background: #3b82f6;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+}
+```
+
+### Edit & Delete Buttons
+```css
+.btn-edit-brand,
+.btn-delete-brand {
+  padding: 10px 16px;
+  background: #ff6347;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-edit-brand:hover,
+.btn-delete-brand:hover {
+  background: #ff4534;
+  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-delete-brand:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+```
+
+### No Brands Message
+```css
+.no-brands-message {
+  text-align: center;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(96, 165, 250, 0.3);
+  border-radius: 12px;
+}
+
+.no-brands-message p {
+  margin: 0 0 24px 0;
+  color: #cbd5e1;
+  font-size: 16px;
+  line-height: 1.6;
+}
+```
+
+---
+
+## 💫 Utility Classes
+
+### Loading Spinner
+```css
+.loading-spinner {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #60a5fa;
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0a1c2d 0%, #0f2438 100%);
+}
+```
+
+### Main Page Container
+```css
+.profile-page {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a1c2d 0%, #0f2438 100%);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+```
+
+### Main Content Container
+```css
+.profile-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+```
+
+---
+
+## 📱 Responsive Media Queries
+
+### Tablet (768px)
+```css
+@media (max-width: 768px) {
+  .profile-navbar { flex-direction: column; gap: 12px; padding: 12px 16px; }
+  .profile-nav-left, .profile-nav-right { width: 100%; }
+  .profile-nav-title { font-size: 18px; }
+  .profile-main-container { padding: 20px 10px; gap: 30px; }
+  .profile-card-container { padding: 24px; }
+  .profile-header { flex-direction: column; text-align: center; gap: 20px; }
+  .info-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .form-row { grid-template-columns: 1fr; }
+  .brands-grid { grid-template-columns: 1fr; }
+}
+```
+
+### Mobile (480px)
+```css
+@media (max-width: 480px) {
+  .profile-nav-btn { padding: 8px 12px; font-size: 12px; }
+  .profile-photo, .profile-photo-placeholder { width: 90px; height: 90px; font-size: 36px; }
+  .profile-header-info h2 { font-size: 20px; }
+  .brands-header h3 { font-size: 22px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .brand-logo, .brand-logo-placeholder { height: 150px; }
+  .form-actions { flex-direction: column; }
+  .btn-save-changes, .btn-cancel { width: 100%; }
+}
+```
+
+---
+
+## 🎨 Color Constants
+
+Use these exact color codes:
+
+```css
+--color-primary: #60a5fa;        /* Primary Blue */
+--color-primary-hover: #3b82f6;  /* Hover Blue */
+--color-primary-light: #93c5fd;  /* Light Blue */
+--color-danger: #ff6347;         /* Tomato Red */
+--color-danger-hover: #ff4534;   /* Tomato Hover */
+--color-text-primary: #ffffff;   /* White Text */
+--color-text-secondary: #cbd5e1; /* Light Gray */
+--color-bg-primary: #0a1c2d;     /* Dark Background */
+--color-bg-secondary: #0f2438;   /* Card Background */
+--color-bg-nav: #020617;         /* Nav Background */
+--color-border: rgba(96, 165, 250, 0.2); /* Border Color */
+```
+
+---
+
+This reference guide covers all CSS styling in the Profile page!
